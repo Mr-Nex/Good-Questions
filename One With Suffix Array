@@ -1,0 +1,49 @@
+Mr. Krabs loves money. He enters a bank and sees that there are n rooms arranged in a row. The only rooms with doors are the two rooms on either corner. Initially, all the rooms are locked (including the corner ones). To enter a room, it must be unlocked with a key.
+
+Mr. Krabs is able to steal k keys from the sleeping night guard. Each key can be used to unlock only one room. To reach one of the inner rooms, he has to unlock an adjacent room first.
+
+Eg: If there are 5 rooms labelled: 1 2 3 4 5
+
+Only Rooms 1 and 5 can be accessed initially. To unlock room 2, either room 1 or room 3 must be unlocked. Similarly to unlock Room 4, he must unlock room 5 or room 3 first.
+
+Each room has some money in it. The money present in room i is given by A[i]. Using the k keys, calculate what is the maximum possible amount of money obtainable.
+
+Input:
+First line will contain n, number of rooms.
+Second line will contain space separated integers, denoting A[i], money present in each room.
+Third line will contain an integer, k, the number of keys available.
+Output:
+Maximum money obtained.
+
+Constraints
+1 <= Number of Rooms <= 10^5
+1 <= A[i] <= 10^4
+1 <= k <= Number of Rooms
+
+
+
+
+
+SOLUTION -
+
+
+public class solve{
+
+	public static void main(String[] args) throws java.lang.Exception {
+       Scanner sc = new Scanner(System.in);    
+       int n=sc.nextInt();
+       int[]arr=new int[n+1];
+       for(int j=1;j<=n;j++) {
+    	  arr[j] = arr[j-1]+sc.nextInt();
+       }
+       int max=0;
+       int k=sc.nextInt();
+       for(int i=0;i<=k;i++) {
+    	   int l = arr[i];
+    	   int r = arr[n] - arr[n-(k-i)];
+    	   max = Math.max(max, l+r);
+       }
+       System.out.println(max);
+	}
+	
+}
