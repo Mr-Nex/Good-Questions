@@ -1,0 +1,52 @@
+J.D. a travel freak guy in NIT goes to hills in Nepal. JD want to take exactly k steps to reach to the top and in each step he climb a or b or c height above his initial position. Given height of hill as H and you have to find no of ways he can climb to the top of hill taking exactly k steps.
+Finally output the answer modulo 10^9+7(1000000007). Read about modulo from here. modulo_arithmetic
+
+Input:
+First line will contain H
+Next Line contain space separated integers the value of a, b, c
+Last contain value of and K.
+Output:
+No of ways to reach the top of hill (can be 0 ).
+
+Constraints
+1≤H≤10000
+1≤K≤100
+1≤a,b,c≤10000
+Subtasks
+50 points : 1≤a,b,c,k,n≤10
+50 points : Original Constraints
+
+
+
+
+Solution  - 
+
+
+
+public class solve{
+
+	public static void main(String[] args) throws java.lang.Exception {
+       Scanner sc = new Scanner(System.in);    
+       int h=sc.nextInt();
+       int a=sc.nextInt();
+       int b=sc.nextInt();
+       int c=sc.nextInt();
+       int k=sc.nextInt();
+       
+       System.out.println(count(h,a,b,c,k));
+	}
+	static long[][] dp = new long[100000+10][200];
+	static long[][] flag = new long[100000+10][200];
+	static long count(int h, int a, int b, int c, int k) {
+		if(h==0 && k==0)
+			return 1;
+		if(h<=0)
+			return 0;
+		if(k<=0)
+			return 0;
+		if(flag[h][k] != 0)
+			return dp[h][k];
+		flag[h][k] = 1;
+		return dp[h][k] = (count(h-a, a, b, c, k-1) + count(h-b, a, b, c, k-1) + count(h-c, a, b, c, k-1))%1000000007;
+	}
+}
