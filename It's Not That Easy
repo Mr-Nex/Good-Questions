@@ -1,0 +1,50 @@
+Beware! You might lose time on this. Try others and jump back here.
+So the deal is, you need to find the lexicographically maximum anagram of the given string. Can you do this?
+
+Input
+First line contains T, the number of test cases.
+Next T lines contain a string S.
+Output
+Print the lexicographically maximum anagram of S.
+
+Constraints
+1 <= T <= 100
+1 <= |S| <= 100000
+Example
+Input:
+2
+cabnrc
+bjprss
+
+Output:
+rnccba
+ssrpjb
+
+
+----------------------------------------------------------------------------
+
+Solution  -  
+
+
+public class something{
+
+	public static void main(String[] args) throws java.lang.Exception {
+    Scanner sc = new Scanner(System.in); 
+   	int t=sc.nextInt();
+   	for(int j=0;j<t;j++) {
+	    	String str=sc.next();
+	    	char[] c=str.toCharArray();
+	    	Arrays.sort(c);
+	    	
+	    	for(int i=0;i<c.length/2;i++)
+		    {
+		        char temp=c[c.length-i-1];
+		        c[c.length-i-1]=c[i];
+		        c[i]=temp;
+		    }
+		    System.out.println(String.valueOf(c));
+   	}
+	}
+}
+
+
