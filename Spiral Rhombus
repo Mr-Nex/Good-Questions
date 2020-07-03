@@ -1,0 +1,263 @@
+Spiral   Rhombus     --------
+
+
+
+
+public class Solve{
+	
+	public static void main(String[] args) throws java.lang.Exception {
+       Scanner sc = new Scanner(System.in);  
+       int h = sc.nextInt();
+       String str="abcdefghijklmnopqrstuvwxyz";
+       int ctr=0, len = str.length();
+       
+       int m=h,n=h,x=h-1,y=h-1;
+       
+       char[][] big = new char[h][h];
+       char[][] small = new char[h-1][h-1];
+       
+       int k=0,l=0,c=0,d=0;
+       int bigH = h, smallH = h-1;
+       int lim1 = 4*((bigH-2)+1);
+       int lim2 = 4*((smallH-2)+1);
+       int c1=0, c2=0;
+       long t1 = System.currentTimeMillis();
+       while((k<m && l<n) || (c<x && d<y)) {
+    	   
+    	   if(c1 == lim1 && c2 == lim2) {
+    		   c1=0; c2=0;
+    		   
+    		   bigH-=2; smallH-=2;
+    		   lim1 = (4*((bigH-2)+1)) == 0 ? 1 : 4*((bigH-2)+1);
+    	       lim2 = (4*((smallH-2)+1)) == 0 ? 1 : 4*((smallH-2)+1);
+
+    	   }
+    	   
+    	   if(c1 < lim1) {
+	    	   for(int i=l;i<n;i++) {
+	    		   big[k][i] = str.charAt(ctr%len);
+	    		   ctr++;
+	    		   c1++;
+	    	   }
+	    	   k++;
+	    	   for(int i=k;i<m;i++) {
+	    		   big[i][n-1] = str.charAt(ctr%len);
+	    		   ctr++;
+	    		   c1++;
+	    	   }
+	    	   n--;
+	    	   if(k<m) {
+	    		   for(int i=n-1;i>=l;i--) {
+	    			   big[m-1][i] = str.charAt(ctr%len);
+	    			   ctr++;
+	    			   c1++;
+	    		   }
+	    		   m--;
+	    	   }
+	    	   if(l<n) {
+	    		   for(int i=m-1;i>=k;i--) {
+	    			   big[i][l] = str.charAt(ctr%len);
+	    			   ctr++;
+	    			   c1++;
+	    		   }
+	    		   l++;
+	    	   }
+    	   }else if(c2 < lim2){
+    		   for(int i=d;i<y;i++) {
+	    		   small[c][i] = str.charAt(ctr%len);
+	    		   ctr++;
+	    		   c2++;
+	    	   }
+	    	   c++;
+	    	   for(int i=c;i<x;i++) {
+	    		   small[i][y-1] = str.charAt(ctr%len);
+	    		   ctr++;
+	    		   c2++;
+	    	   }
+	    	   y--;
+	    	   if(c<x) {
+	    		   for(int i=y-1;i>=d;i--) {
+	    			   small[x-1][i] = str.charAt(ctr%len);
+	    			   ctr++;
+	    			   c2++;
+	    		   }
+	    		   x--;
+	    	   }
+	    	   if(d<y) {
+	    		   for(int i=x-1;i>=c;i--) {
+	    			   small[i][d] = str.charAt(ctr%len);
+	    			   ctr++;
+	    			   c2++;
+	    		   }
+	    		   d++;
+	    	   }
+    	   }
+       }
+		/*
+		 * int num=0, ind1=0,ind2=0; for(int i=0;i<h+h-1;i++) { if(num%2 == 0) { for(int
+		 * j=0;j<h;j++) { System.out.print(big[ind1][j]+" "); } ind1++; }else {
+		 * System.out.print(" "); for(int j=0;j<h-1;j++) {
+		 * System.out.print(small[ind2][j]+" "); } ind2++; } num++;
+		 * System.out.println(); }
+		 */
+       int row=0,col=0,z=h-2, spaceUP=h, spaceDown=1;
+		for(int i=0;i<h;i++) {
+			if(i==0) {
+				for(int j=h-1;j>=0;j--) {
+					for(int sp=1;sp<spaceUP;sp++) {
+						System.out.print(" ");
+					}
+					row=i;
+					col=j;
+					System.out.print(big[row][col]);				
+					if(col<h-1) {
+						while(col<h-1) {
+							System.out.print(small[row][col]);
+							row++;
+							col++;
+							System.out.print(big[row][col]);
+						}
+					}	
+					System.out.println();
+					spaceUP--;
+				}
+			}else {
+				for(int sp=0;sp<spaceDown;sp++) {
+					System.out.print(" ");
+				}
+				row=i;
+				col=0;
+				System.out.print(big[row][col]);					
+				if(row<h-1) {
+					while(row<h-1) {
+						System.out.print(small[row][col]);
+						row++;
+						col++;
+						System.out.print(big[row][col]);
+					}
+				}	
+				System.out.println();
+				spaceDown++;
+			}
+		}
+		long t2 = System.currentTimeMillis();
+		System.out.println("Time Taken :: "+(t2-t1)+"ms");
+	}
+	
+}
+
+
+
+
+
+
+
+
+-------------------------------------------------------------    OR    -----------------------------------------------------------------------
+
+
+
+
+
+
+
+
+public class Solve{
+	
+	public static void main(String[] args) throws java.lang.Exception {
+       Scanner sc = new Scanner(System.in);  
+       int h = sc.nextInt();
+       String str="12345";
+       int ctr=0, len = str.length();
+       int matSize = h+h-1;
+       int m=matSize,n=matSize;
+       
+       char[][] mat = new char[matSize][matSize];
+       
+       int k=0,l=0;
+       int cnt=0;
+       long t1 = System.currentTimeMillis();
+       while(k<m && l<n) {
+    	   
+    	   for(int i=l;i<n;i++) {
+    		   if(cnt%2==0) {
+	    		   mat[k][i] = str.charAt(ctr%len);
+	    		   ctr++;
+    		   }else {
+    			   mat[k][i] = '-';
+    		   }
+    		   cnt++;
+    	   }
+    	   k++;
+    	   for(int i=k;i<m;i++) {
+    		   if(cnt%2==0) {
+	    		   mat[i][n-1] = str.charAt(ctr%len);
+	    		   ctr++;
+    		   }else {
+    			   mat[i][n-1] = '-';
+    		   }
+    		   cnt++;
+    	   }
+    	   n--;
+    	   if(k<m) {
+    		   for(int i=n-1;i>=l;i--) {
+    			   if(cnt%2==0) {
+	    			   mat[m-1][i] = str.charAt(ctr%len);
+	    			   ctr++;
+    			   }else {
+    				   mat[m-1][i] = '-';
+    			   }
+        		   cnt++;
+    		   }
+    		   m--;
+    	   }
+    	   if(l<n) {
+    		   for(int i=m-1;i>=k;i--) {
+    			   if(cnt%2 == 0) {
+	    			   mat[i][l] = str.charAt(ctr%len);
+	    			   ctr++;
+    			   }else {
+    				   mat[i][l] = '-';
+    			   }
+        		   cnt++;
+    		   }
+    		   l++;
+    	   }
+    	   
+       }
+	   int inner = matSize-1;
+	   int outer=0, outerCtr=0;
+	   int spaceUp=h-1, spaceDown=1;
+       for(int i=0;i<matSize;i++) {
+    	   if(i<h) {
+    		   for(int sp=0;sp<spaceUp;sp++) {
+    			   System.out.print(" ");
+    		   }
+	    	   outer=0;
+	    	   for(int j=inner;j<matSize;j++) {    		   
+	    		   System.out.print(mat[outer][j]);
+	    		   outer++;
+	    	   }
+	    	   inner = (inner-2);
+	    	   spaceUp--;
+    	   }else {
+    		   for(int sp=0;sp<spaceDown;sp++) {
+    			   System.out.print(" ");
+    		   }
+    		   outer = i-h+2+outerCtr;
+    		   inner = 0;
+    		   while(outer<matSize) {    	
+	    		   System.out.print(mat[outer][inner]);
+	    		   outer++;
+	    		   inner++;
+	    	   }
+    		   outerCtr++;
+    		   spaceDown++;
+    	   }
+    	   System.out.println();
+       }
+       long t2 = System.currentTimeMillis();
+       System.out.println("Time Taken :: "+(t2-t1));
+	}
+	
+}
