@@ -1,0 +1,31 @@
+> Remove duplicate nodes in a Linked List -
+
+
+
+public static Node removeDuplicates(Node head) {
+      
+      if(head==null){
+          return null;
+      }
+      Node prev=head;
+      Node current = null;
+      Node same = null;
+      while(prev != null && prev.next != null){
+          current = prev;
+          same = null;
+          while(current.next != null){
+              if(current.data == current.next.data){
+                  same = current.next;
+                  current.next = current.next.next;
+                  System.gc();
+              }else if(current.next != null && same != null && current.next.data == same.data){
+                  current.next = current.next!=null ? current.next.next : null;
+                  System.gc();
+              }else{
+                  current = current.next;
+              }
+          }
+          prev = prev.next;
+      }
+      return head;
+    }
