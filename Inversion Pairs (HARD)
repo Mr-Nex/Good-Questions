@@ -1,0 +1,58 @@
+> Inversion Pairs - Hard
+
+
+
+public class Rev {
+
+	public static void main(String[] args) throws ParseException {
+		int[] arr = {40,25,19,12,9,6,2};
+		int ans = sort(arr,0,arr.length-1);
+		System.out.println(ans);
+	}
+	
+	static int sort(int[] arr, int beg, int end) {
+		int val = 0;
+		
+		if(beg<end) {
+			int mid = (beg+end)/2;
+			val += sort(arr,beg,mid);
+			val += sort(arr,mid+1,end);
+			val += merge(arr,beg,mid,end);
+		}else
+			return 0;
+		return val;
+	}
+	
+	static int merge(int[] arr, int beg, int mid, int end) {
+		int j,val=0;
+		j=mid+1;
+		
+		for(int i=beg;i<=mid;i++) {
+			while(j<=end && arr[i]>2*(long)arr[j]) {
+				j++;
+			}
+			val += (j-(mid+1));
+		}
+		
+		ArrayList<Integer> tmp = new ArrayList<Integer>();
+		int left = beg, right = mid+1;
+				
+		while(left<=mid && right<=end) {
+			if(arr[left]<=arr[right]) {
+				tmp.add(arr[left++]);
+			}else {
+				tmp.add(arr[right++]);
+			}
+		}
+		while(left<=mid) {
+			tmp.add(arr[left++]);
+		}
+		while(right<=end) {
+			tmp.add(arr[right++]);
+		}
+		for(int i=beg;i<=end;i++) {
+			arr[i] = tmp.get(i-beg);
+		}
+		return val;
+	}
+}
