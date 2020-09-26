@@ -1,0 +1,110 @@
+>Matrix Layer Rotation -
+
+
+
+
+public class Matrix {
+
+	public static void main(String[] args) throws ParseException {
+		Scanner sc = new Scanner(System.in);
+		int r = sc.nextInt(), c=sc.nextInt();
+		int rot=sc.nextInt();
+		int[][] mat = new int[r][c];
+		boolean same=true;
+		int numb=0;
+		for(int i=0;i<r;i++) {
+			for(int j=0;j<c;j++) {
+				mat[i][j]=sc.nextInt();
+				if(i==0&&j==0) {
+					numb=mat[i][j];
+				}else {
+					if(mat[i][j]!=numb)
+						same=false;
+				}
+			}
+		}
+		if(same==false) {
+			int row = r, col=c;
+			ArrayList<Integer> rounds = new ArrayList<>();
+			while(row>0&&col>0) {
+				rounds.add((col*2)+((row-2)*2));
+				col-=2;	row-=2;
+			}
+			int begi=0, begj=0;
+			for(int jj=0;jj<rounds.size();jj++) {
+				int pos = rot%rounds.get(jj);
+				if(pos!=0) {
+					int swp = rounds.get(jj)-pos;
+					Queue<Integer> q = new LinkedList<>();
+					q.add(mat[begi][begj]);
+					int cntr=0, flag=0, frst=0;
+					while(!q.isEmpty()) {
+						for(int l=begj;l<c-begj;l++) {
+							if(q.isEmpty())
+								break;
+							if(frst==1 && flag==0 && cntr<swp) {
+								q.add(mat[begi][l]);
+							}
+							frst=1;
+							if(cntr>=swp && flag==0) {
+								int num=(mat[begi][l]);
+								mat[begi][l]=q.remove();
+								q.add(num);
+							}else if(cntr>=swp && flag==1) {
+								mat[begi][l]=q.remove();
+							}
+							cntr++;
+						}
+						for(int k=begi+1;k<r-begi;k++) {
+							if(q.isEmpty())
+								break;
+							if(flag==0 && cntr<swp) q.add(mat[k][c-1-begj]);
+							if(cntr>=swp && flag==0) {
+								int num=(mat[k][c-1-begj]);
+								mat[k][c-1-begj]=q.remove();
+								q.add(num);
+							}else if(cntr>=swp && flag==1) {
+								mat[k][c-1-begj]=q.remove();
+							}
+							cntr++;
+						}
+						for(int l=c-2-begj;l>=begj;l--) {
+							if(q.isEmpty())
+								break;
+							if(flag==0 && cntr<swp) q.add(mat[r-1-begi][l]);
+							if(cntr>=swp && flag==0) {
+								int num=(mat[r-1-begi][l]);
+								mat[r-1-begi][l]=q.remove();
+								q.add(num);
+							}else if(cntr>=swp && flag==1) {
+								mat[r-1-begi][l]=q.remove();
+							}
+							cntr++;
+						}
+						for(int k=r-2-begi;k>begi;k--) {
+							if(q.isEmpty())
+								break;
+							if(flag==0 && cntr<swp) q.add(mat[k][begj]);
+							if(cntr>=swp && flag==0) {
+								int num=(mat[k][begj]);
+								mat[k][begj]=q.remove();
+								q.add(num);
+							}else if(cntr>=swp && flag==1) {
+								mat[k][begj]=q.remove();
+							}
+							cntr++;
+						}
+						flag=1;
+					}
+				}
+				begi++;	begj++;
+			}
+		}
+		for(int i=0;i<r;i++) {
+			for(int j=0;j<c;j++) {
+				System.out.print(mat[i][j]+" ");
+			}
+			System.out.println();
+		}
+	}
+}
