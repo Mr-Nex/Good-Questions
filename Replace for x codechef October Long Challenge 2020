@@ -1,0 +1,239 @@
+> CodeChef October Challenge 2020 - 
+
+Q : Replace for x.
+
+My Solution - 
+
+
+
+
+public class Solve{
+	public static void main(String[] args) throws IOException {
+		Scanner sc = new Scanner(System.in);
+		BufferedWriter bw= new BufferedWriter(new OutputStreamWriter(System.out));
+		int T = sc.nextInt();
+		for(int jj=0;jj<T;jj++) {			
+			int n = sc.nextInt();
+			int x = sc.nextInt();
+			int p = sc.nextInt();
+			int k = sc.nextInt();
+			int[] arr = new int[n];
+			int same=1;
+			int ok=1;
+			for(int i=0;i<n;i++) {
+				arr[i] = sc.nextInt();
+				if(i>0 && arr[i]==arr[i-1])
+					same++;
+				if(i>0 && arr[i]>=arr[i-1])
+					ok++;
+			}
+			if(ok!=n) {
+				Arrays.sort(arr);
+			}
+			if(same!=n) {
+				if(arr[p-1]!=x) {
+					if(p!=k) {
+						if(p<k) {
+							if(x<arr[p-1]) {
+								int flg=0, ctr=0;
+								int start = 0;
+								int end = p-1;
+								int mid = (start+end)/2;
+								int val=-1;
+								while(start<=end) {
+									if(arr[mid]<x) {
+										start=mid+1;
+										val=mid;
+									}else if(arr[mid]>x) {
+										end=mid-1;
+									}else {
+										start=mid+1;
+										val=mid;
+									}
+									mid = (start+end)/2;
+									if(start==end)
+										ctr++;
+									if(start==end && ctr>1) {
+										if(arr[mid]==x) {
+											flg=1;
+										}
+										break;
+									}
+								}
+								int diff = 0;
+								if(flg==0) {
+									diff = Math.abs(val-(p-1));
+									bw.write(""+diff);
+									bw.newLine();
+									bw.flush();
+								}else if(flg==1) {
+									diff = Math.abs(mid-(p-1));
+									bw.write(""+diff);
+									bw.newLine();
+									bw.flush();
+								}
+							}else {
+								bw.write("-1");
+								bw.newLine();
+								bw.flush();
+							}
+						}else {
+							if(x>arr[p-1]) {
+								int flg=0, ctr=0;
+								int start = p-1;
+								int end = n-1;
+								int mid = (start+end)/2;
+								int val=-1;
+								while(start<=end) {
+									if(arr[mid]<x) {
+										start=mid+1;
+										val=mid;
+									}else if(arr[mid]>x) {
+										end=mid-1;
+									}else {
+										end=mid;
+										val=mid;
+									}
+									mid = (start+end)/2;
+									if(start==end)
+										ctr++;
+									if(start==end && ctr>1) {
+										if(arr[mid]==x) {
+											flg=1;
+										}
+										break;
+									}
+								}
+								int diff = 0;
+								if(flg==0) {
+									diff = Math.abs((val+1)-(p-1));
+									bw.write(""+diff);
+									bw.newLine();
+									bw.flush();
+								}else if(flg==1) {
+									diff = Math.abs(mid-(p-1));
+									bw.write(""+diff);
+									bw.newLine();
+									bw.flush();
+								}
+							}else {
+								bw.write("-1");
+								bw.newLine();
+								bw.flush();
+							}
+						}
+					}else {
+						if(x<arr[p-1]) {
+							int flg=0, ctr=0;
+							int start = 0;
+							int end = p-1;
+							int mid = (start+end)/2;
+							int val=-1;
+							while(start<=end) {
+								if(arr[mid]<x) {
+									start=mid+1;
+									val=mid;
+								}else if(arr[mid]>x) {
+									end=mid-1;
+								}else {
+									start=mid+1;
+									val=mid;
+								}
+								mid = (start+end)/2;
+								if(start==end)
+									ctr++;
+								if(start==end && ctr>1) {
+									if(arr[mid]==x) {
+										flg=1;
+									}
+									break;
+								}
+							}
+							int diff = 0;
+							if(flg==0) {
+								diff = Math.abs(val-(p-1));
+								bw.write(""+diff);
+								bw.newLine();
+								bw.flush();
+							}else if(flg==1) {
+								diff = Math.abs(mid-(p-1));
+								bw.write(""+diff);
+								bw.newLine();
+								bw.flush();
+							}
+						}else if(x>arr[p-1]) {
+							int flg=0, ctr=0;
+							int start = p-1;
+							int end = n-1;
+							int mid = (start+end)/2;
+							int val=-1;
+							while(start<=end) {
+								if(arr[mid]<x) {
+									start=mid+1;
+									val=mid;
+								}else if(arr[mid]>x) {
+									end=mid-1;
+								}else {
+									end=mid;
+									val=mid;
+								}
+								mid = (start+end)/2;
+								if(start==end)
+									ctr++;
+								if(start==end && ctr>1) {
+									if(arr[mid]==x) {
+										flg=1;
+									}
+									break;
+								}
+							}
+							int diff = 0;
+							if(flg==0) {
+								diff = Math.abs((val+1)-(p-1));
+								bw.write(""+diff);
+								bw.newLine();
+								bw.flush();
+							}else if(flg==1) {
+								diff = Math.abs(mid-(p-1));
+								bw.write(""+diff);
+								bw.newLine();
+								bw.flush();
+							}
+						}
+					}
+				}else {
+					bw.write("0");
+					bw.newLine();
+					bw.flush();
+				}
+			}else {
+				if(arr[p-1]!=x) {
+					int min = Math.min((p),(n-p)+1);
+					bw.write(""+min);
+					bw.newLine();
+					bw.flush();
+				}else {
+					bw.write("0");
+					bw.newLine();
+					bw.flush();
+				}
+			}
+		}
+	}
+}
+
+/*
+
+Few Test Cases --
+
+4
+11 10 8 7
+1 2 2 4 4 7 8 9 12 14 20
+11 9 8 7
+1 2 2 4 4 7 8 9 12 14 20
+11 13 8 7
+1 2 2 2 2 7 8 9 12 14 20
+11 19 8 7
+1 2 2 2 2 7 8 9 12 14 20
+
+*/
