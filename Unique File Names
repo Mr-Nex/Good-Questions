@@ -1,0 +1,40 @@
+> Create a File Storage system, following that there won't be any redundancy in file names.
+  i.e., system will make necessary changes in the file name if it's not unique.
+  
+  
+  
+> Solution
+
+
+
+class Solution {
+    public String[] getFolderNames(String[] names) {
+        String[] ans = new String[names.length];
+        int ctr=0;
+        HashMap<String,Integer> hm = new HashMap<>();
+        for(int i=0;i<names.length;i++){
+            if(hm.get(names[i])==null){
+                hm.put(names[i],1);
+                ans[ctr++] = names[i];
+            }
+            else{
+                String tmp = names[i]+"("+hm.get(names[i])+")";
+                int flg=0;
+                while(hm.get(tmp)!=null){
+                    flg=1;
+                    hm.put(names[i],hm.get(names[i])+1);
+                    tmp = names[i]+"("+hm.get(names[i])+")";
+                }
+                if(flg==1){
+                    ans[ctr++] = tmp;
+                    hm.put(tmp,1);                    
+                }else{
+                    ans[ctr++] = tmp;
+                    hm.put(names[i],hm.get(names[i])+1);
+                    hm.put(tmp,1);                    
+                }
+            }
+        }
+        return ans;
+    }
+}
