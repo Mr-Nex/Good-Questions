@@ -1,0 +1,53 @@
+public class Chef{
+	public static void main(String[] args) throws IOException {
+		String txt = "ABABDABACDABABCABAB"; 
+        String pat = "ABAB"; 
+        
+        getPattern(txt,pat);
+    } 		
+	
+	static void getPattern(String txt, String pat) {
+		int txtL = txt.length();
+		int patL = pat.length();
+		int[] lps = new int[patL];
+		lps[0] = 0;
+		getLPS(pat,patL,lps);
+		
+		int i=0, j=0;
+		
+		while(i<txtL) {
+			if(txt.charAt(i)==pat.charAt(j)) {
+				i++;j++;
+			}
+			if(j==patL){
+				System.out.println("Patter Found at index :: "+(i-j));
+				j = lps[j-1];
+			}
+			else if(i<txtL && pat.charAt(j)!=txt.charAt(i)) {
+				if(j!=0)	j = lps[j-1];
+				else	i++;
+			}
+		}
+		
+	}
+	
+	static void getLPS(String pat,int patL, int[] lps) {
+		int len=0;
+		int i=1;
+		
+		while(i<patL) {
+			if(pat.charAt(i)==pat.charAt(len)) {
+				++len;
+				lps[i] = len;
+				i++;
+			}else {
+				if(len!=0) {
+					len = lps[len-1];
+				}else {
+					lps[i] = len;
+					i++;
+				}
+			}
+		}
+	}
+}
