@@ -1,0 +1,20 @@
+class Solution {
+    int dp[][];
+    public int countVowelStrings(int n) {
+        dp = new int[n+1][5];
+        
+        return count(n,4,0);
+    }
+    
+    int count(int n, int blocks, int prev){
+        if(dp[prev][blocks]!=0)
+            return dp[prev][blocks];
+        if(blocks==0)
+            return 1;
+        int res=0;
+        for(int i=prev;i<=n;i++){
+            res += count(n,blocks-1,i);
+        }
+        return dp[prev][blocks] = res;
+    }
+}
